@@ -1,9 +1,33 @@
 // src/App.jsx
-
+import IngredientList from './components/IngredientList/IngredientList';
+import BurgerStack from './components/BurgerStack/BurgerStack';
+import { useState } from 'react';
 import './App.css';
 
+
+
 const App = () => {
-  const availableIngredients = [
+  const [stack, setStack] = useState([]);
+  
+  const addToBurger = (newIngredient) => {
+    console.log(stack)
+    setStack([...stack, newIngredient]);
+  };
+
+  const removeFromBurger = (ingredientToRemove) => {
+    let found = false; // ensures only first ingredient is removed
+    const updatedStack = stack.filter( ingredient => {
+        if (ingredient.name === ingredientToRemove.name && !found) {
+          found = true;
+          return false;
+        }
+        return true;
+      }
+    );
+    setStack(updatedStack);
+  };
+  
+    const availableIngredients = [
     { name: 'Kaiser Bun', color: 'saddlebrown' },
     { name: 'Sesame Bun', color: 'sandybrown' },
     { name: 'Gluten Free Bun', color: 'peru' },
@@ -24,7 +48,12 @@ const App = () => {
     <main>
       <h1>Burger Stacker</h1>
       <section>
-      {/* List & Stack components */}
+        <IngredientList 
+          availableIngredients={availableIngredients} 
+          addToBurger={addToBurger}
+        />
+
+        <BurgerStack stack={stack} removeFromBurger={removeFromBurger}/>
       </section>
     </main>
   );
