@@ -53,7 +53,11 @@ const App = () => {
           addToBurger={addToBurger}
         />
 
-        <BurgerStack stack={stack} removeFromBurger={removeFromBurger}/>
+        <BurgerStack
+        stack={stack}
+        removeFromBurger={removeFromBurger}
+        />
+        
       </section>
     </main>
   );
